@@ -1,0 +1,201 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-parchment-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C5A059;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #A8874A;
+}
+
+/* Reading progress bar */
+.progress-bar {
+  transition: width 50ms ease-out;
+}
+
+/* Citation superscript styling */
+.prose sup {
+  color: #A8874A;
+  font-weight: 600;
+  font-size: 0.7em;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.prose sup:hover {
+  color: #722F37;
+}
+
+/* Chi-Rho watermark */
+.chi-rho-watermark {
+  position: absolute;
+  right: -5%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20rem;
+  opacity: 0.04;
+  color: #C5A059;
+  font-family: var(--font-playfair), serif;
+  pointer-events: none;
+  user-select: none;
+  line-height: 1;
+}
+
+/* Decorative ornament */
+.ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.ornament::before,
+.ornament::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to var(--direction, right), transparent, #C5A059, transparent);
+}
+
+.ornament::before {
+  --direction: right;
+}
+
+.ornament::after {
+  --direction: left;
+}
+
+/* ToC sidebar styling */
+.toc-link {
+  transition: all 0.2s ease;
+  border-left: 2px solid transparent;
+}
+
+.toc-link:hover {
+  color: #722F37;
+  border-left-color: #C5A059;
+}
+
+.toc-link.active {
+  color: #722F37;
+  font-weight: 600;
+  border-left-color: #C5A059;
+  background-color: rgba(197, 160, 89, 0.08);
+}
+
+/* Mobile ToC overlay */
+.toc-overlay {
+  animation: fadeIn 0.2s ease;
+}
+
+.toc-drawer {
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+/* Selection color */
+::selection {
+  background-color: rgba(114, 47, 55, 0.15);
+  color: inherit;
+}
+
+/* First letter drop cap for first paragraph after h2 */
+.prose > h2 + p::first-letter {
+  font-family: var(--font-playfair), serif;
+  font-size: 3.5em;
+  float: left;
+  line-height: 0.8;
+  margin-right: 0.1em;
+  margin-top: 0.1em;
+  color: #722F37;
+  font-weight: 700;
+}
+
+/* Blockquote enhanced styling */
+.prose blockquote {
+  position: relative;
+}
+
+.prose blockquote::before {
+  content: '\201C';
+  position: absolute;
+  top: -0.5rem;
+  left: 0.5rem;
+  font-size: 3rem;
+  color: rgba(114, 47, 55, 0.15);
+  font-family: var(--font-playfair), serif;
+  line-height: 1;
+}
+
+/* Table responsive wrapper */
+.table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Themes using CSS Variables */
+:root, .theme-light {
+  --color-parchment: #FAF9F6;
+  --color-parchment-dark: #F3F1EC;
+  --color-charcoal: #1F2937;
+  --color-tooltip-bg: #FFFFFF;
+}
+
+.theme-dark {
+  --color-parchment: #111827;
+  --color-parchment-dark: #1F2937;
+  --color-charcoal: #F9FAFB;
+  --color-tooltip-bg: #1F2937;
+}
+
+.theme-sepia {
+  --color-parchment: #F4ECD8;
+  --color-parchment-dark: #EAE0C8;
+  --color-charcoal: #433422;
+  --color-tooltip-bg: #FDF6E3;
+}
+
+/* Base colors apply automatically via tailwind, but we set body explicitly for inheritance */
+body {
+  background-color: var(--color-parchment);
+  color: var(--color-charcoal);
+}
+
+/* Prose explicit overrides that Tailwind typography might miss because of dynamic vars */
+.theme-dark .prose {
+  --tw-prose-th-borders: #722F37;
+  --tw-prose-td-borders: #374151;
+}
+.theme-dark tbody tr:nth-child(even) { background-color: rgba(197, 160, 89, 0.1); }
+
+.theme-sepia .prose {
+  --tw-prose-td-borders: #D1C7B1;
+}
